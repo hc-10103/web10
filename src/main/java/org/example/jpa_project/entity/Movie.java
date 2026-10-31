@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.example.jpa_project.dto.MovieRequest;
 
 @Entity
+@Table(name = "movie")
 public class Movie {
 
     @Id
