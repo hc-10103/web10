@@ -1,5 +1,6 @@
 package org.example.jpa_project.controller;
 
+import jakarta.validation.Valid;
 import org.example.jpa_project.dto.MovieRequest;
 import org.example.jpa_project.dto.MovieResponse;
 import org.example.jpa_project.entity.Movie;
@@ -20,7 +21,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public ResponseEntity<MovieResponse> create(@RequestBody MovieRequest request) {
+    public ResponseEntity<MovieResponse> create(@Valid @RequestBody MovieRequest request) {
         MovieResponse movieResponse = movieService.create(request);
         return ResponseEntity.created(URI.create("api/movies/" + movieResponse.id())).body(movieResponse);
     }
@@ -38,7 +39,7 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MovieResponse> update(@RequestBody MovieRequest request,
+    public ResponseEntity<MovieResponse> update(@Valid @RequestBody MovieRequest request,
                                                 @PathVariable Long id) {
         MovieResponse response = movieService.update(id,request);
         return ResponseEntity.ok(response);
