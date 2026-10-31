@@ -16,7 +16,7 @@ import java.util.List;
 public class MovieController {
     private final MovieService movieService;
 
-    public MovieController(MovieService movieService, MovieService movieService1) {
+    public MovieController(MovieService movieService1) {
         this.movieService = movieService1;
     }
 
