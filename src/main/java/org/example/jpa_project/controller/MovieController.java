@@ -23,7 +23,7 @@ public class MovieController {
     @PostMapping
     public ResponseEntity<MovieResponse> create(@Valid @RequestBody MovieRequest request) {
         MovieResponse movieResponse = movieService.create(request);
-        return ResponseEntity.created(URI.create("api/movies/" + movieResponse.id())).body(movieResponse);
+        return ResponseEntity.created(URI.create("/api/movies/" + movieResponse.id())).body(movieResponse);
     }
 
     @GetMapping
