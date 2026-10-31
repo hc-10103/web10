@@ -36,7 +36,10 @@ public class MovieService {
     }
 
     public MovieResponse update(Long id, MovieRequest movieRequest) {
-        Movie movie = movieRepository.findById(id).orElse(null);
+        Movie movie = movieRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Movie not Found " + id));
+
         movie.update(movieRequest);
         return from(movieRepository.save(movie));
     }
