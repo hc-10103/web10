@@ -4,11 +4,22 @@ import jakarta.persistence.*;
 import org.example.jpa_project.dto.MovieRequest;
 
 @Entity
+/* Q1
+@Entity는 해당 클래스를 JPA가 관리하는 엔티티로 지정하는 어노테이션이다.
+@Id는 해당 변수를 기본 키로 설정하는 어노테이션이며, 이 기본 키를 이용해 데이터를 식별한다.
+@GeneratedValue는 기본 키 값을 자동으로 생성하게 만드는 어노테이션이다.
+*/
 @Table(name = "movie")
+/* Q2
+ORM 기능을 통해 자바와 DB가 연결된다. Entity 클래스가 DB의 테이블로, 필드가 Column으로, 인스턴스가 Row로 , @id 필드가
+테이블의 기본 키와 맵핑된다.
+@Table을 통해 연결할 테이블 이름을, @Column을 통해 연결할 칼럼 이름을 지정할 수 있다.
+*/
+
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //
     private Long id;
 
     @Column(nullable = false, length = 200)
