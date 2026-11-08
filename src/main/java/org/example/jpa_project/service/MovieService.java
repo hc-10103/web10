@@ -30,6 +30,24 @@ public class MovieService {
                 "Movie not Found" + id)));
     }
 
+    public List<MovieResponse> findByTitle(String title) {
+        return  movieRepository.findByTitle(title).stream().map(MovieResponse::from).toList();
+    }
+
+    public List<MovieResponse> findByDirectorAndRatingBetween(String director, Float rate1, Float rate2) {
+        return movieRepository.findByDirectorAndRatingBetween(director, rate1, rate2)
+                .stream().map(MovieResponse::from).toList();
+    }
+
+    public List<MovieResponse> findAllByOrderByRatingDesc() {
+        return movieRepository.findAllByOrderByRatingDesc().stream().map(MovieResponse::from).toList();
+    }
+
+
+    /* Q7
+    create와 update에서 모두 save를 사용하여 데이터를 저장한다. 이미 존재하는 ID라면 update를, 존재하지 않는 ID라면 새롭게 create를
+    진행한다.
+     */
     public MovieResponse create(MovieRequest movieRequest) {
         Movie saved = movieRepository.save(new Movie(movieRequest));
         return from(saved);
