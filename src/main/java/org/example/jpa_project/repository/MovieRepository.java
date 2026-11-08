@@ -3,6 +3,8 @@ package org.example.jpa_project.repository;
 import org.example.jpa_project.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /* Q3
 JpaRepository<Movie, Long> 에서 Movie는 Entity이다. 즉, JPA가 관리할 Entity 클래스를 의미하고, Long은 Id로,
 기본 키의 타입을 의미한다.
@@ -29,4 +31,8 @@ findById가 Optional이어야 찾는 Id에 해당하는 데이터가 존재하�
  */
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
+
+    List<Movie> findByTitle(String title);
+    List<Movie> findByDirectorAndRatingBetween(String director, Float rate1, Float rate2);
+    List<Movie> findAllByOrderByRatingDesc();
 }
