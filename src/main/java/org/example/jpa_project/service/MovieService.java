@@ -1,5 +1,6 @@
 package org.example.jpa_project.service;
 
+import jakarta.transaction.Transactional;
 import org.apache.coyote.Response;
 import org.example.jpa_project.dto.MovieRequest;
 import org.example.jpa_project.dto.MovieResponse;
@@ -53,13 +54,14 @@ public class MovieService {
         return from(saved);
     }
 
+    @Transactional
     public MovieResponse update(Long id, MovieRequest movieRequest) {
         Movie movie = movieRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Movie not Found " + id));
 
         movie.update(movieRequest);
-        return from(movieRepository.save(movie));
+        return from(movie);
     }
 
     public void delete(Long id) {
