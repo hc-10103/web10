@@ -1,6 +1,7 @@
 package org.example.jpa_project.controller;
 
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.example.jpa_project.dto.MovieRequest;
 import org.example.jpa_project.dto.MovieResponse;
 import org.example.jpa_project.entity.Movie;
@@ -36,6 +37,27 @@ public class MovieController {
     public ResponseEntity<MovieResponse> findById(@PathVariable Long id) {
         MovieResponse movieResponse = movieService.findById(id);
         return ResponseEntity.ok(movieResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MovieResponse>> findAllByOrderByRatingDesc() {
+        List<MovieResponse> list = movieService.findAllByOrderByRatingDesc();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/search/advanced")
+    public ResponseEntity<List<MovieResponse>> findByDirectorAndRatingBetween(
+            @RequestParam String director,
+            @RequestParam Float rate1,
+            @RequestParam Float rate2) {
+        List<MovieResponse> list = movieService.findByDirectorAndRatingBetween(director, rate1, rate2);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/search/title")
+    public ResponseEntity<List<MovieResponse>> findByTitle(@RequestParam String title) {
+        List<MovieResponse> list = movieService.findByTitle(title);
+        return ResponseEntity.ok(list);
     }
 
     @PutMapping("/{id}")
