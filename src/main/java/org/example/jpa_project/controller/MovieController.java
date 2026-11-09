@@ -39,7 +39,7 @@ public class MovieController {
         return ResponseEntity.ok(movieResponse);
     }
 
-    @GetMapping
+    @GetMapping("/search/rating")
     public ResponseEntity<List<MovieResponse>> findAllByOrderByRatingDesc() {
         List<MovieResponse> list = movieService.findAllByOrderByRatingDesc();
         return ResponseEntity.ok(list);
