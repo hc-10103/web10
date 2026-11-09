@@ -54,6 +54,13 @@ public class MovieService {
         return from(saved);
     }
 
+    /* Q8
+    @Transactional은 트랜잭션을 관리하는 어노테이션이다. Dirty Checking은 JPA가 영속성을 지닌 엔티티 변경사항을 자동으 감지하여 DB에
+    반영하는 기능이다.
+    @Transactional이 적용된 메서드에서 Repository를 통해 Entity를 조회하면, 해당 Entity는 영속성 컨텍스트에서 관리된다.
+    이후 Entity의 필드 값을 변경하면 JPA가 변경 사항을 감지하고, 트랜잭션 커밋 시 UPDATE SQL을 실행하여 DB에 반영한다.
+    따라서 repository.save()를 호출하지 않아도 데이터 수정이 가능하다.
+     */
     @Transactional
     public MovieResponse update(Long id, MovieRequest movieRequest) {
         Movie movie = movieRepository.findById(id)
