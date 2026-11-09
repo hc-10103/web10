@@ -2,6 +2,11 @@ package org.example.jpa_project.entity;
 
 import jakarta.persistence.*;
 import org.example.jpa_project.dto.MovieRequest;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 /* Q1
@@ -9,6 +14,7 @@ import org.example.jpa_project.dto.MovieRequest;
 @Id는 해당 변수를 기본 키로 설정하는 어노테이션이며, 이 기본 키를 이용해 데이터를 식별한다.
 @GeneratedValue는 기본 키 값을 자동으로 생성하게 만드는 어노테이션이다.
 */
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "movie")
 /* Q2
 ORM 기능을 통해 자바와 DB가 연결된다. Entity 클래스가 DB의 테이블로, 필드가 Column으로, 인스턴스가 Row로 , @id 필드가
@@ -37,6 +43,15 @@ public class Movie {
     @Column(nullable = true)
     private Float rating;
 
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+
     protected Movie() {}
 
     public Movie(MovieRequest request) {
@@ -61,6 +76,14 @@ public class Movie {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     public String getTitle() {
